@@ -1,0 +1,39 @@
+<form class="container-sm" (ngSubmit)="onSubmit(formGroup)" [formGroup]="formGroup">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label text-right" for="name">名称<code>*</code></label>
+    <div class="col-sm-10">
+      <input type="text" [formControlName]="formKeys.name" class="form-control" name="name" id="name">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label  text-right" >开始日期<code>*</code></label>
+    <div class="col-sm-10">
+      <yz-date [formControlName]="formKeys.startTime" ></yz-date>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label  text-right" >结束日期<code>*</code></label>
+    <div class="col-sm-10">
+      <yz-date [formControlName]="formKeys.endTime" ></yz-date>
+    </div>
+
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-2"></div>
+    <div class="col-7">
+      <small class="text-danger"
+             *ngIf="!timeTrue">
+        <span >
+          学期开始时间大于结束时间，请重新输入！
+        </span>
+      </small>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-10 offset-2">
+      <button class="btn btn-primary" [disabled]="formGroup.invalid || !timeTrue" type="submit"><i class="fas fa-save"></i>保存
+      </button>
+    </div>
+  </div>
+</form>
