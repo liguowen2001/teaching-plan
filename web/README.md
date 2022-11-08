@@ -3,7 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.7.
 ## 版本
 
-nodejs 14.15.4
+nodejs 14.21.0
 
 npm 6.14.10
 # 启动

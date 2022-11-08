@@ -1,6 +1,7 @@
 package club.yunzhi.log.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 课程
@@ -16,6 +17,36 @@ public class Course {
      * 名称
      */
     private String name;
+
+    /**
+     * 学期
+     */
+    @ManyToOne
+    @JoinColumn(name = "semester_id")
+    private Semester semester;
+
+    /**
+     * 课程学分
+     */
+    private int courseCredit;
+
+    /**
+     * 实验学分
+     */
+    private int experimentalCredit;
+
+    /**
+     * 考核方式
+     */
+    private String examinationMethod;
+
+    /**
+     * 专业
+     */
+    @ManyToMany
+    private List<Major> majors;
+
+
 
     public Long getId() {
         return id;
@@ -57,27 +88,7 @@ public class Course {
         this.examinationMethod = examinationMethod;
     }
 
-    /**
-     * 学期
-     */
-    @ManyToOne
-    @JoinColumn(name = "semester_id")
-    private Semester semester;
 
-    /**
-     * 课程学分
-     */
-    private int courseCredit;
-
-    /**
-     * 实验学分
-     */
-    private int experimentalCredit;
-
-    /**
-     * 考核方式
-     */
-    private String examinationMethod;
 
     public Semester getSemester() {
         return semester;

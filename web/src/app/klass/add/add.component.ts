@@ -56,7 +56,6 @@ export class AddComponent implements OnInit {
       } as Major
     });
     // 调用save方法
-    console.log(newKlass);
     this.klassService.save(newKlass)
       .subscribe(() => {
         this.commonService.success(() => {

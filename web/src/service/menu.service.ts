@@ -39,6 +39,16 @@ export class MenuService {
       icon: 'fa fa-user-cog',
     },
     {
+      name: '学生管理',
+      url: 'student',
+      icon: 'fa fa-address-book'
+    },
+    {
+      name: '教师管理',
+      url: 'teacher',
+      icon: 'fa fa-address-book'
+    },
+    {
       name: '个人中心',
       url: 'personal',
       icon: 'fa fa-user-alt'

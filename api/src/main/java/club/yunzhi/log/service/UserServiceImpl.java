@@ -145,6 +145,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
   public User updateFields(User newUser, User oldUser) {
     oldUser.setUsername(newUser.getUsername());
     oldUser.setName(newUser.getName());
+    oldUser.setRole(newUser.getRole());
+    oldUser.setEmail(newUser.getEmail());
     return this.userRepository.save(oldUser);
   }
 

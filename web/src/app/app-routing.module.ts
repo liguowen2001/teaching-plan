@@ -18,6 +18,20 @@ const routes: Routes = [
     component: BasicComponent,
     children: [
       {
+        path: 'student',
+        loadChildren: () => import('./student/student.module').then(m => m.StudentModule),
+        data: {
+          title: '学生管理'
+        }
+      },
+      {
+        path: 'teacher',
+        loadChildren: () => import('./teacher/teacher.module').then(m => m.TeacherModule),
+        data: {
+          title: '教师管理'
+        }
+      },
+      {
         path: 'user',
         loadChildren: () => import('./user/user.module').then(m => m.UserModule),
         data: {

@@ -3,6 +3,7 @@ package club.yunzhi.log.entity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -19,9 +20,21 @@ public class User implements Serializable {
     private static PasswordEncoder passwordEncoder;
 
     private static final long serialVersionUID = 6903403699983360575L;
+
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name = "";
 
     @Column(nullable = false, unique = true)

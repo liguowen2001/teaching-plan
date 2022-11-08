@@ -56,7 +56,6 @@ export class AddComponent implements OnInit {
       email: formGroup.get(this.formKeys.email).value as string,
       role: formGroup.get(this.formKeys.role).value as number
     } as User;
-    console.log(user);
     this.userService.save(user)
       // tslint:disable-next-line:variable-name
       .subscribe(string => {

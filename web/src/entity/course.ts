@@ -2,6 +2,9 @@
  * 课程
  */
 import {Semester} from './semester';
+import {Klass} from './Klass';
+import {Teacher} from './teacher';
+import {Major} from './major';
 
 export class Course {
   /**
@@ -33,13 +36,26 @@ export class Course {
    * 考核方式
    */
   examinationMethod: string;
+
+  /**
+   * 教师
+   */
+  teacher?: Teacher;
+
+  /**
+   * 开课专业
+   */
+  majors?: Major[];
+
   constructor(data = {} as {
     id?: number,
     name?: string,
     semester?: Semester,
     courseCredit?: number,
     experimentalCredit?: number,
-    examinationMethod?: string
+    examinationMethod?: string,
+    teacher?: Teacher,
+    majors?: Major[]
   }) {
     this.id = data.id;
     this.name = data.name;
@@ -47,6 +63,8 @@ export class Course {
     this.courseCredit = data.courseCredit;
     this.experimentalCredit = data.experimentalCredit;
     this.examinationMethod = data.examinationMethod;
+    this.teacher = data.teacher;
+    this.majors = data.majors;
   }
 
 }

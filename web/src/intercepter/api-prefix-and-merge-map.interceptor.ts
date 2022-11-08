@@ -43,7 +43,7 @@ export class ApiPrefixAndMergeMapInterceptor implements HttpInterceptor {
     // 由于request是个不可变对象，所以需要克隆一个req出来
     const req = request.clone({url});
     // 转发到下一个
-    console.log(url);
+    //console.log(url);
     return next.handle(req).pipe(
       // return next.handle(request).pipe(
       // mergeMap = 如果在短期内发生相同的提交，则只返回最后一个

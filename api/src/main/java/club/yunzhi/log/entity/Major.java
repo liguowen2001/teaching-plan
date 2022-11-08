@@ -1,6 +1,7 @@
 package club.yunzhi.log.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Major {
@@ -17,6 +18,16 @@ public class Major {
      */
     private String trainingPlan;
 
+    @ManyToMany
+    private List<Course> courses;
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
 
     public String getName() {
         return name;

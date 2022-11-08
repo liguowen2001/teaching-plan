@@ -38,7 +38,7 @@ export class ThemeService extends BasicService {
   }
   getTitle(): Observable<string> {
     return new Observable<string>(subscriber => {
-      subscriber.next('日志管理系统')
+      subscriber.next('教学计划管理系统')
     });
   }
   onClickUserName(){
