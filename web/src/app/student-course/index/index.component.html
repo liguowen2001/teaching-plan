@@ -1,0 +1,46 @@
+<form (submit)="onSubmit(queryForm)" [formGroup]="queryForm" class="form-group">
+  <div class="form-row justify-content-between">
+    <div class="form-group col-md-3">
+      <label>学期</label>
+      <app-semester-select [formControlName]="keys.semesterId" class="form-control"></app-semester-select>
+    </div>
+    <div class="form-group col-md-3 text-left align-self-end search">
+      <button class="btn btn-info" type="submit"><i class="fas fa-search"></i> 查询</button>
+    </div>
+  </div>
+
+</form>
+<div class="row mb-2">
+  <div class="col-6 text-success">
+    <h4>当前学期: {{currentSemester.name}}</h4>
+  </div>
+  <div class="col-6 text-center">
+    <button class="btn btn-primary" (click)="viewTrainingPlan()"><i class="fas fa-eye"></i>查看培养计划
+    </button>
+  </div>
+</div>
+<table class="table table-striped mt-2">
+  <thead>
+  <tr class="table-primary">
+    <th>序号</th>
+    <th>课程</th>
+    <th>课程学分</th>
+    <th>实验学分</th>
+    <th>考核学分</th>
+    <th>开课学期</th>
+    <th>教师</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let teachingPlan of student?.klass?.teachingPlans; index as i">
+    <td>{{ i + 1 }}</td>
+    <td>{{ teachingPlan.course?.name }}</td>
+    <td>{{ teachingPlan.course?.courseCredit }}</td>
+    <td>{{ teachingPlan.course?.experimentalCredit}}</td>
+    <td>{{ teachingPlan.course?.examinationMethod}}</td>
+    <td>{{ teachingPlan.course?.semester?.name }}</td>
+    <td>{{ teachingPlan.teacher?.user?.name }}</td>
+  </tr>
+  </tbody>
+</table>
+

@@ -1,0 +1,38 @@
+<form class="container-sm" (ngSubmit)="onSubmit(formGroup)" [formGroup]="formGroup">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label text-right" for="name">名称<code>*</code></label>
+    <div class="col-sm-10">
+      <input type="text" [formControlName]="formKeys.name" class="form-control" name="name">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label text-right" for="name">课程学分<code>*</code></label>
+    <div class="col-sm-10">
+      <input type="text" [formControlName]="formKeys.courseCredit" class="form-control" name="name">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label text-right" for="name">实验学分<code>*</code></label>
+    <div class="col-sm-10">
+      <input type="text" [formControlName]="formKeys.experimentalCredit" class="form-control" name="name">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label text-right" for="name">考核方式<code>*</code></label>
+    <div class="col-sm-10">
+      <input type="text" [formControlName]="formKeys.examinationMethod" class="form-control" name="name" id="name">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label  text-right">开课学期<code>*</code></label>
+    <div class="col-sm-10">
+      <app-semester-select class="form-control" [formControlName]="formKeys.semester"></app-semester-select>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-10 offset-2">
+      <button class="btn btn-primary" [disabled]="formGroup.invalid" type="submit"><i class="fas fa-save"></i>保存
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddComponent } from './add.component';
+import { KlassCheckboxComponent } from './klass-checkbox.component';
 
 
 
 @NgModule({
   declarations: [
-    AddComponent
+    KlassCheckboxComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class AddModule { }
+export class KlassCheckboxModule { }

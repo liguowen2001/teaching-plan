@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IndexComponent } from './index.component';
+import { TeacherCheckboxComponent } from './teacher-checkbox.component';
 
 
 
 @NgModule({
   declarations: [
-    IndexComponent
+    TeacherCheckboxComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class IndexModule { }
+export class TeacherCheckboxModule { }
