@@ -2,8 +2,10 @@ package club.yunzhi.log.controller;
 
 import club.yunzhi.log.entity.Klass;
 import club.yunzhi.log.entity.Major;
+import club.yunzhi.log.entity.TeachingPlan;
 import club.yunzhi.log.service.KlassService;
 import club.yunzhi.log.utils.PageImpl;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ public class KlassController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Long majorId,
             final @SortDefault(value = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Klass> klasses = new PageImpl(this.klassService.findAll(name, majorId,pageable));
+        Page<Klass> klasses = new PageImpl(this.klassService.findAll(name, majorId, pageable));
         return klasses;
     }
 

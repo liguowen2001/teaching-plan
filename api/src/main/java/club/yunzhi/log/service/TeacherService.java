@@ -19,4 +19,6 @@ public interface TeacherService {
     Page<Teacher> findAll(String name, String username, Pageable pageable);
 
     List<Teacher> getAll();
+
+    Teacher findByUser(Long userId);
 }

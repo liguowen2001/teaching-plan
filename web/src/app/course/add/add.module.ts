@@ -4,6 +4,7 @@ import { AddComponent } from './add.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MajorSelectModule} from '../../major/major-select/major-select.module';
 import {SemesterSelectModule} from '../../semester/semester-select/semester-select.module';
+import {TeacherCheckboxModule} from '../../teacher/teacher-checkbox/teacher-checkbox.module';
 
 
 
@@ -15,7 +16,8 @@ import {SemesterSelectModule} from '../../semester/semester-select/semester-sele
     CommonModule,
     ReactiveFormsModule,
     MajorSelectModule,
-    SemesterSelectModule
+    SemesterSelectModule,
+    TeacherCheckboxModule
   ]
 })
 export class AddModule { }

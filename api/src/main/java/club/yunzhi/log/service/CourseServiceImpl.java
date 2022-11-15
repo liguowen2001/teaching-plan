@@ -16,9 +16,8 @@ public class CourseServiceImpl implements CourseService {
     CourseRepository courseRepository;
 
     @Override
-    public String save(Course course) {
-        this.courseRepository.save(course);
-        return "success";
+    public Long save(Course course) {
+        return this.courseRepository.save(course).getId();
     }
 
     @Override
@@ -43,8 +42,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Page<Course> findAll(String name,Long majorId ,Pageable pageable) {
-        Page<Course> page = courseRepository.findAll(name,majorId,pageable);
+    public Page<Course> findAll(String name, Long majorId, Pageable pageable) {
+        Page<Course> page = courseRepository.findAll(name, majorId, pageable);
         return page;
     }
 

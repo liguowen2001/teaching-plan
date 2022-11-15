@@ -1,7 +1,6 @@
 package club.yunzhi.log.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Student {
@@ -21,17 +20,6 @@ public class Student {
      */
     @ManyToOne
     private Klass klass;
-
-    public List<TeachingPlan> getTeachingPlans() {
-        return teachingPlans;
-    }
-
-    public void setTeachingPlans(List<TeachingPlan> teachingPlans) {
-        this.teachingPlans = teachingPlans;
-    }
-
-    @ManyToMany
-    private List<TeachingPlan> teachingPlans;
 
 
     public User getUser() {

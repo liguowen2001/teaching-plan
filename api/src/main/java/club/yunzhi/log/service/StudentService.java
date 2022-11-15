@@ -19,4 +19,6 @@ public interface StudentService {
     Page<Student> findAll(String name, Long majorId,String username ,Pageable pageable);
 
     List<Student> getAll();
+
+    Student findByUserId(Long userId);
 }

@@ -21,4 +21,9 @@ public interface TeacherRepository extends PagingAndSortingRepository<Teacher, L
         return this.findAll(specification, pageable);
     }
 
+    default Teacher findByUser(Long userId) {
+        Specification<Teacher> specification = TeacherSpecs.belongToUser(userId);
+        return (Teacher) this.findOne(specification).get();
+    }
+
 }

@@ -2,6 +2,7 @@ package club.yunzhi.log.repository.specs;
 
 
 import club.yunzhi.log.entity.Teacher;
+import club.yunzhi.log.entity.User;
 import org.springframework.data.jpa.domain.Specification;
 
 public class TeacherSpecs {
@@ -19,6 +20,17 @@ public class TeacherSpecs {
         if (username != null) {
             return (Specification<Teacher>) (root, criteriaQuery, criteriaBuilder)
                     -> criteriaBuilder.like(root.get("user").get("username").as(String.class), String.format("%%%s%%", username));
+        } else {
+            return Specification.where(null);
+        }
+    }
+
+    public static Specification<Teacher> belongToUser(Long userId) {
+        User user = new User();
+        user.setId(userId);
+        if (userId != null) {
+            return (Specification<Teacher>) (root, criteriaQuery, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("user").as(User.class), user);
         } else {
             return Specification.where(null);
         }

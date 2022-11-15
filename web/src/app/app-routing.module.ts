@@ -18,6 +18,13 @@ const routes: Routes = [
     component: BasicComponent,
     children: [
       {
+        path: 'user',
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+        data: {
+          title: '用户管理'
+        }
+      },
+      {
         path: 'student',
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule),
         data: {
@@ -29,13 +36,6 @@ const routes: Routes = [
         loadChildren: () => import('./teacher/teacher.module').then(m => m.TeacherModule),
         data: {
           title: '教师管理'
-        }
-      },
-      {
-        path: 'user',
-        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-        data: {
-          title: '用户管理'
         }
       },
       {
@@ -68,6 +68,20 @@ const routes: Routes = [
         loadChildren: () => import('./semester/semester.module').then(m => m.SemesterModule),
         data: {
           title: '学期管理'
+        }
+      },
+      {
+        path: 'teachingPlan',
+        loadChildren: () => import('./teaching-plan/teaching-plan.module').then(m => m.TeachingPlanModule),
+        data: {
+          title: '教学计划管理'
+        }
+      },
+      {
+        path: 'studentCourse',
+        loadChildren: () => import('./student-course/student-course.module').then(m => m.StudentCourseModule),
+        data: {
+          title: '课程'
         }
       },
     ]
