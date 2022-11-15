@@ -2,6 +2,7 @@
  * 班级
  */
 import {Major} from './major';
+import {TeachingPlan} from './teaching-plan';
 
 export class Klass {
   /**
@@ -13,15 +14,20 @@ export class Klass {
    */
   name?: string;
 
-  major: Major;
+  major?: Major;
+
+  teachingPlans?: TeachingPlan[];
+
   constructor(data = {} as {
     id?: number,
     name?: string,
-    major: Major
+    major?: Major,
+    teachingPlans?: TeachingPlan[]
   }) {
     this.id = data.id;
     this.name = data.name;
     this.major = data.major;
+    this.teachingPlans = data.teachingPlans;
   }
 
 }

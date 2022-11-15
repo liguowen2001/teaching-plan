@@ -1,22 +1,22 @@
 package club.yunzhi.log.service;
 
-import club.yunzhi.log.entity.Klass;
+import club.yunzhi.log.entity.TeachingPlan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface KlassService {
+public interface TeachingPlanService {
 
-    String save(Klass klass);
+    String save(TeachingPlan teachingPlan);
 
-    Klass update(Long id,Klass klass);
+    TeachingPlan update(Long id,TeachingPlan teachingPlan);
 
     void deleteById(Long id);
 
-    Klass findById(Long id);
+    TeachingPlan findById(Long id);
 
-    Page<Klass> findAll(String name, Long majorId, Pageable pageable);
+    Page<TeachingPlan> findAll(String name,Long semesterId,Long teacherId ,Pageable pageable);
 
-    List<Klass> getAll();
+    List<TeachingPlan> getAll();
 }

@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../service/common.service';
 import {ActivatedRoute} from '@angular/router';
-import {CourseService} from '../../../service/course.service';
-import {Course} from '../../../entity/course';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Assert} from '@yunzhi/utils/build/src';
-import {Semester} from '../../../entity/semester';
+import {TeachingPlanService} from '../../../service/teaching-plan.service';
+import {TeachingPlan} from '../../../entity/teaching-plan';
+import {Klass} from '../../../entity/Klass';
+import {FileService} from '../../../service/file.service';
+import {KlassService} from '../../../service/klass.service';
 
 @Component({
   selector: 'app-edit',
@@ -15,8 +17,10 @@ import {Semester} from '../../../entity/semester';
 export class EditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private courseService: CourseService,
-              private commonService: CommonService,) {
+              private teachingPlanService: TeachingPlanService,
+              private commonService: CommonService,
+              private fileService: FileService,
+              private klassService :KlassService) {
   }
 
   formGroup = new FormGroup({});
@@ -25,21 +29,18 @@ export class EditComponent implements OnInit {
    */
   formKeys = {
     id: 'id',
-    name: 'name',
-    semester: 'semester',
-    courseCredit: 'courseCredit',
-    experimentalCredit: 'experimentalCredit',
-    examinationMethod: 'examinationMethod'
+    klasses: 'klasses',
+    teachingFocus: 'teachingFocus'
   };
-  course = {} as Course;
+  teachingPlan = {} as TeachingPlan;
+
+  file: File;
+  formData = new FormData();
 
   ngOnInit(): void {
     this.formGroup.addControl(this.formKeys.id, new FormControl('', Validators.required));
-    this.formGroup.addControl(this.formKeys.name, new FormControl('', Validators.required));
-    this.formGroup.addControl(this.formKeys.semester, new FormControl('', Validators.required));
-    this.formGroup.addControl(this.formKeys.courseCredit, new FormControl('', Validators.required));
-    this.formGroup.addControl(this.formKeys.experimentalCredit, new FormControl('', Validators.required));
-    this.formGroup.addControl(this.formKeys.examinationMethod, new FormControl('', Validators.required));
+    this.formGroup.addControl(this.formKeys.klasses, new FormControl([], Validators.required));
+    this.formGroup.addControl(this.formKeys.teachingFocus, new FormControl([], Validators.required));
 
     this.route.params.subscribe(param => {
       const id = +param.id;
@@ -50,32 +51,46 @@ export class EditComponent implements OnInit {
 
   loadById(id: number): void {
     this.formGroup.get('id')?.setValue(id);
-    this.courseService.getById(id)
-      .subscribe((course) => {
-        Assert.isNotNullOrUndefined(course, course.name, 'some properties must be passed');
-        this.formGroup.get(this.formKeys.name).setValue(course.name);
-        this.formGroup.get(this.formKeys.semester).setValue(course.semester.id);
-        this.formGroup.get(this.formKeys.examinationMethod).setValue(course.examinationMethod);
-        this.formGroup.get(this.formKeys.experimentalCredit).setValue(course.experimentalCredit);
-        this.formGroup.get(this.formKeys.courseCredit).setValue(course.courseCredit);
+    this.teachingPlanService.getById(id)
+      .subscribe((teachingPlan) => {
+        Assert.isNotNullOrUndefined(teachingPlan, teachingPlan.name, 'some properties must be passed');
+        let klassIds = [];
+        teachingPlan.klasses.forEach(function (klass) {
+          klassIds.push(klass.id);
+        });
+        this.formGroup.get(this.formKeys.klasses).setValue(klassIds);
 
       }, error => console.log(error));
   }
 
   onSubmit(formGroup: FormGroup): void {
+    this.formData.append('file', this.file);
+    if (this.file == undefined){
+      this.save(null);
+    }else {
+      this.fileService.save(this.formData)
+        .subscribe(fileName => {
+          this.save(fileName);
+        });
+    }
+
+  }
+
+  save(fileName: string): void{
     const id = this.formGroup.get('id').value;
-    const newCourse = new Course({
-      id: formGroup.get('id').value,
-      name: formGroup.get('name').value,
-      semester: {
-        id: formGroup.get(this.formKeys.semester).value
-      } as Semester,
-      experimentalCredit: formGroup.get(this.formKeys.experimentalCredit).value,
-      examinationMethod: formGroup.get(this.formKeys.examinationMethod).value,
-      courseCredit: formGroup.get(this.formKeys.courseCredit).value
+    let klasses = [] as Klass[];
+    let klassIds = this.formGroup.get(this.formKeys.klasses).value as number[];
+    klassIds.forEach(function (id) {
+      klasses.push({id: id});
     });
 
-    this.courseService.update(id, newCourse)
+    const newTeachingPlan = new TeachingPlan({
+      id: this.formGroup.get('id').value,
+      name: fileName,
+      klasses: klasses,
+      teachingFocus: this.formGroup.get(this.formKeys.teachingFocus).value
+    });
+    this.teachingPlanService.update(id, newTeachingPlan)
       .subscribe(() => {
           this.commonService.success(() => this.commonService.back());
         },
@@ -83,4 +98,12 @@ export class EditComponent implements OnInit {
           this.commonService.error();
         });
   }
+
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.file = file;
+    }
+  }
+
 }

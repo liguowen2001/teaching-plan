@@ -8,6 +8,9 @@ import { KlassCheckboxComponent } from './klass-checkbox.component';
   declarations: [
     KlassCheckboxComponent
   ],
+  exports: [
+    KlassCheckboxComponent
+  ],
   imports: [
     CommonModule
   ]

@@ -29,18 +29,24 @@ export class TeachingPlan {
   /**
    * 课程
    */
-  course?: Course
+  course?: Course;
+
+  teachingFocus?: string;
 
   constructor(data = {} as {
     id?: number,
     name?: string,
     klasses?: Klass[],
-    teacher?: Teacher
-    te
+    teacher?: Teacher,
+    course?: Course,
+    teachingFocus?: string
+
   }) {
     this.id = data.id;
     this.name = data.name;
     this.klasses = data.klasses;
-    this.teacher = data.teacher
+    this.teacher = data.teacher;
+    this.course = data.course;
+    this.teachingFocus = data.teachingFocus;
   }
 }

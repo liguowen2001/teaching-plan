@@ -1,27 +1,43 @@
 package club.yunzhi.log.repository.specs;
 
 
-import club.yunzhi.log.entity.Klass;
-import club.yunzhi.log.entity.Major;
+import club.yunzhi.log.entity.*;
 import org.springframework.data.jpa.domain.Specification;
 
-public class KlassSpecs {
+import java.util.List;
 
-    public static Specification<Klass> containingName(String name) {
+
+public class TeachingPlanSpecs {
+
+    public static Specification<TeachingPlan> containingName(String name) {
         if (name != null) {
-            return (Specification<Klass>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("name").as(String.class), String.format("%%%s%%", name));
+            return (Specification<TeachingPlan>) (root, criteriaQuery, criteriaBuilder)
+                    -> criteriaBuilder.like(root.get("name").as(String.class), String.format("%%%s%%", name));
         } else {
             return Specification.where(null);
         }
     }
 
-    public static Specification<Klass> belongToMajor(Long majorId) {
-        Major major = new Major();
-        major.setId(majorId);
-        if (majorId != null) {
-            return (Specification<Klass>) (root, criteriaQuery, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("major").as(Major.class), major);
-        }else {
+    public static Specification<TeachingPlan> belongToSemester(Long semesterId) {
+
+        Semester semester = new Semester();
+        semester.setId(semesterId);
+        if (semesterId != null) {
+            return (Specification<TeachingPlan>) (root, criteriaQuery, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("course").get("semester").as(Semester.class), semester);
+        } else {
+            return Specification.where(null);
+        }
+    }
+
+    public static Specification<TeachingPlan> belongToTeacher(Long teacherId) {
+
+        Teacher teacher = new Teacher();
+        teacher.setId(teacherId);
+        if (teacherId != null) {
+            return (Specification<TeachingPlan>) (root, criteriaQuery, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("teacher").as(Teacher.class), teacher);
+        } else {
             return Specification.where(null);
         }
     }

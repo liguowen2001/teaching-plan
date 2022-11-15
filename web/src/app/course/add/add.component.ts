@@ -5,6 +5,9 @@ import {CommonService} from '../../../service/common.service';
 import {CourseService} from '../../../service/course.service';
 import {Course} from '../../../entity/course';
 import {Semester} from '../../../entity/semester';
+import {TeachingPlan} from '../../../entity/teaching-plan';
+import {Teacher} from '../../../entity/teacher';
+import {TeachingPlanService} from '../../../service/teaching-plan.service';
 
 
 @Component({
@@ -22,13 +25,17 @@ export class AddComponent implements OnInit {
     semester: 'semester',
     courseCredit: 'courseCredit',
     experimentalCredit: 'experimentalCredit',
-    examinationMethod: 'examinationMethod'
+    examinationMethod: 'examinationMethod',
+    teachers: 'teachers'
   };
 
   formGroup = new FormGroup({});
 
+  teachers = [] as number[];
+
   constructor(private courseService: CourseService,
               private commonService: CommonService,
+              private teachingPlanService: TeachingPlanService
   ) {
   }
 
@@ -46,6 +53,7 @@ export class AddComponent implements OnInit {
     this.formGroup.addControl(this.formKeys.courseCredit, new FormControl('', Validators.required));
     this.formGroup.addControl(this.formKeys.experimentalCredit, new FormControl('', Validators.required));
     this.formGroup.addControl(this.formKeys.examinationMethod, new FormControl('', Validators.required));
+    this.formGroup.addControl(this.formKeys.teachers, new FormControl([] as number[], Validators.required));
 
   }
 
@@ -65,7 +73,8 @@ export class AddComponent implements OnInit {
     });
     // 调用save方法
     this.courseService.save(newCourse)
-      .subscribe(() => {
+      .subscribe(courseId => {
+        this.saveTeachingPlan(courseId, this.teachingPlanService);
         this.commonService.success(() => {
           this.commonService.back();
         });
@@ -74,5 +83,25 @@ export class AddComponent implements OnInit {
         }, '保存失败', '保存失败');
       });
   }
+
+  saveTeachingPlan(courseId: number, teachingPlanService: TeachingPlanService): void {
+    this.teachers = this.formGroup.get(this.formKeys.teachers).value;
+    let teacherPlan = new TeachingPlan();
+    this.teachers.forEach(function (teacherId) {
+      teacherPlan = {
+        course: {
+          id: courseId
+        },
+        teacher: {
+          id: teacherId
+        } as Teacher
+      } as TeachingPlan;
+      teachingPlanService.save(teacherPlan)
+        .subscribe(value => {
+          console.log(value);
+        });
+    });
+  }
+
 
 }

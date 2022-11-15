@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CourseService {
 
-    String save(Course course);
+    Long save(Course course);
 
     Course update(Long id,Course course);
 

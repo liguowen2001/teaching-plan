@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {IndexModule} from './index/index.module';
 import {EditModule} from './edit/edit.module';
-import {CourseRoutingModule} from './course-routing.module';
+import {TeachingPlanRoutingModule} from './teaching-plan-routing.module';
 import {AddModule} from './add/add.module';
 
 
@@ -14,7 +14,7 @@ import {AddModule} from './add/add.module';
     IndexModule,
     AddModule,
     EditModule,
-    CourseRoutingModule
+    TeachingPlanRoutingModule
   ]
 })
 export class TeachingPlanModule { }

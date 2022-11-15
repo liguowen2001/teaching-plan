@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EditComponent } from './edit.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SemesterSelectModule} from '../../semester/semester-select/semester-select.module';
+import {KlassCheckboxModule} from '../../klass/klass-checkbox/klass-checkbox.module';
 
 
 
@@ -13,7 +14,8 @@ import {SemesterSelectModule} from '../../semester/semester-select/semester-sele
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SemesterSelectModule
+    SemesterSelectModule,
+    KlassCheckboxModule
   ]
 })
 export class EditModule { }

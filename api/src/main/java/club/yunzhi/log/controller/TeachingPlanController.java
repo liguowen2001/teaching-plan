@@ -1,8 +1,7 @@
 package club.yunzhi.log.controller;
 
-import club.yunzhi.log.entity.Klass;
-import club.yunzhi.log.entity.Major;
-import club.yunzhi.log.service.KlassService;
+import club.yunzhi.log.entity.TeachingPlan;
+import club.yunzhi.log.service.TeachingPlanService;
 import club.yunzhi.log.utils.PageImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,51 +20,52 @@ import java.util.List;
  * 专业
  */
 @RestController
-@RequestMapping("klass")
-public class KlassController {
+@RequestMapping("teachingPlan")
+public class TeachingPlanController {
 
-    private final static Logger logger = LoggerFactory.getLogger(KlassController.class);
-
-    @Autowired
-    private KlassService klassService;
+    private final static Logger logger = LoggerFactory.getLogger(TeachingPlanController.class);
 
     @Autowired
-    public KlassController(final KlassService klassService) {
-        this.klassService = klassService;
+    private TeachingPlanService teachingPlanService;
+
+    @Autowired
+    public TeachingPlanController(final TeachingPlanService teachingPlanService) {
+        this.teachingPlanService = teachingPlanService;
     }
 
     @PostMapping
-    public void save(@RequestBody final Klass klass) {
-        this.klassService.save(klass);
+    public void save(@RequestBody final TeachingPlan teachingPlan) {
+        this.teachingPlanService.save(teachingPlan);
     }
 
     @GetMapping("page")
-    public Page<Klass> page(
+    public Page<TeachingPlan> page(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) Long majorId,
+            @RequestParam(required = false) Long semesterId,
+            @RequestParam(required = false) Long teacherId,
             final @SortDefault(value = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Klass> klasses = new PageImpl(this.klassService.findAll(name, majorId,pageable));
-        return klasses;
+        Page<TeachingPlan> teachingPlanes = new PageImpl(this.teachingPlanService.findAll(name,semesterId,teacherId ,pageable));
+        return teachingPlanes;
     }
 
     @GetMapping("getAll")
-    public List<Klass> getAll() {
-        return this.klassService.getAll();
+    public List<TeachingPlan> getAll() {
+        return this.teachingPlanService.getAll();
     }
 
     @GetMapping("{id}")
-    public Klass getById(@PathVariable Long id) {
-        return this.klassService.findById(id);
+    public TeachingPlan getById(@PathVariable Long id) {
+        return this.teachingPlanService.findById(id);
     }
 
     @PutMapping("{id}")
-    public Klass update(@PathVariable Long id, @RequestBody Klass Klass) {
-        return this.klassService.update(id, Klass);
+    public TeachingPlan update(@PathVariable Long id, @RequestBody TeachingPlan teachingPlan) {
+        return this.teachingPlanService.update(id, teachingPlan);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
-        this.klassService.deleteById(id);
+        this.teachingPlanService.deleteById(id);
     }
 }

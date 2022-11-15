@@ -68,4 +68,9 @@ public class StudentController {
     public void deleteById(@PathVariable Long id) {
         this.studentService.deleteById(id);
     }
+
+    @GetMapping("getByUser/{id}")
+    public Student getByUser(@PathVariable Long id) {
+        return this.studentService.findByUserId(id);
+    }
 }

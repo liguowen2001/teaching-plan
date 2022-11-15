@@ -219,8 +219,7 @@ export class CommonService {
   }
 
   viewFile(fileName: string) {
-    return;
-    let url = 'http://49.232.213.25:8081/images/'+fileName//要预览文件的访问地址
-    window.open('http://49.232.213.25:8012/onlinePreview?url='+encodeURIComponent(Base64.encode(url)));
+    let url = 'http://127.0.0.1:8001/images/'+fileName//要预览文件的访问地址
+    window.open('http://127.0.0.1:8012/onlinePreview?url='+encodeURIComponent(Base64.encode(url)));
   }
 }

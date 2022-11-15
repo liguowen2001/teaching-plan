@@ -1,53 +1,57 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Page} from '@yunzhi/ng-common';
 import {isNotNullOrUndefined} from '@yunzhi/utils';
 import {map} from 'rxjs/operators';
-import {Klass} from '../entity/Klass';
+import {TeachingPlan} from '../entity/teaching-plan';
 
 @Injectable({
   providedIn: 'root'
 })
-export class KlassService {
+export class TeachingPlanService {
 
-  private baseUrl = 'klass';
-  constructor(private httpClient: HttpClient) { }
+  private baseUrl = 'teachingPlan';
 
-  public update(klassId: number, Klass: Klass): Observable<Klass> {
-    return this.httpClient.put<Klass>(`${this.baseUrl}/${klassId}`, Klass);
+  constructor(private httpClient: HttpClient) {
+  }
+
+  public update(teachingPlanId: number, teachingPlan: TeachingPlan): Observable<TeachingPlan> {
+    return this.httpClient.put<TeachingPlan>(`${this.baseUrl}/${teachingPlanId}`, teachingPlan);
   }
 
   /**
    * 删除
    */
-  public delete(klassId: number): Observable<null> {
-    return this.httpClient.delete<null>(`${this.baseUrl}/${klassId.toString()}`);
+  public delete(teachingPlanId: number): Observable<null> {
+    return this.httpClient.delete<null>(`${this.baseUrl}/${teachingPlanId.toString()}`);
   }
 
 
-  public page(page: number, size: number, param: { name?: string, majorId?: number }): Observable<Page<Klass>> {
+  public page(page: number, size: number, param: {name?: string, semesterId?: number, teacherId?: number}): Observable<Page<TeachingPlan>> {
     const httpParams = new HttpParams()
       .append('page', page.toString())
       .append('size', size.toString())
       .append('name', isNotNullOrUndefined(param.name) ? param.name : '')
-      .append('majorId',isNotNullOrUndefined(param.majorId) ? param.majorId : '')
+      .append('klassId', isNotNullOrUndefined(param.semesterId) ? param.semesterId : '')
+      .append('teacherId', isNotNullOrUndefined(param.teacherId) ? param.teacherId : '');
+
     // 返回根据相应链接订阅的数据，将数据中的每一个json对象转换为 User 对象。
-    return this.httpClient.get<Page<Klass>>(`${this.baseUrl}/page`, {params: httpParams})
-      .pipe(map(data => new Page<Klass>(data).toObject(o => new Klass(o))));
+    return this.httpClient.get<Page<TeachingPlan>>(`${this.baseUrl}/page`, {params: httpParams})
+      .pipe(map(data => new Page<TeachingPlan>(data).toObject(o => new TeachingPlan(o))));
 
   }
 
-  public save(Klass: Klass): Observable<string> {
-    return this.httpClient.post<string>(`${this.baseUrl}`, Klass);
+  public save(teachingPlan: TeachingPlan): Observable<string> {
+    return this.httpClient.post<string>(`${this.baseUrl}`, teachingPlan);
   }
 
-  public getById(KlassId: number): Observable<Klass> {
-    return this.httpClient.get<Klass>(`${this.baseUrl}/${KlassId.toString()}`);
+  public getById(teachingPlanId: number): Observable<TeachingPlan> {
+    return this.httpClient.get<TeachingPlan>(`${this.baseUrl}/${teachingPlanId.toString()}`);
   }
 
-  public getAll(): Observable<Klass[]>{
-    return this.httpClient.get<Klass[]>(`${this.baseUrl}/getAll`);
+  public getAll(): Observable<TeachingPlan[]> {
+    return this.httpClient.get<TeachingPlan[]>(`${this.baseUrl}/getAll`);
   }
 
 }

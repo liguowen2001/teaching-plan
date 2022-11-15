@@ -52,7 +52,16 @@ export class SignInComponent implements OnInit {
     this.userService.login(user)
       .subscribe(() => {
         this.userService.initCurrentLoginUser(() => {
-          this.router.navigateByUrl('user').then();
+          this.userService.currentLoginUser$
+            .subscribe(user=>{
+              if (user.role == 0){
+                this.router.navigateByUrl('user').then();
+              }else if (user.role == 1){
+                this.router.navigateByUrl('teachingPlan').then();
+              }else {
+                this.router.navigateByUrl('studentCourse').then();
+              }
+            })
         });
       }, (response) => {
         const errorCode = +response.headers.get(config.ERROR_RESPONSE_CODE_KEY);

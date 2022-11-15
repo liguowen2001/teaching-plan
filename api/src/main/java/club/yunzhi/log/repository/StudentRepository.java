@@ -14,12 +14,17 @@ import javax.validation.constraints.NotNull;
 
 public interface StudentRepository extends PagingAndSortingRepository<Student, Long>, JpaSpecificationExecutor {
 
-    default Page findAll(String name, Long klassId, String username,@NotNull Pageable pageable) {
+    default Page findAll(String name, Long klassId, String username, @NotNull Pageable pageable) {
         Assert.notNull(pageable, "传入的Pageable不能为null");
         Specification<Student> specification = StudentSpecs.containingName(name)
                 .and(StudentSpecs.containingUsername(username))
                 .and(StudentSpecs.belongToKlass(klassId));
         return this.findAll(specification, pageable);
+    }
+
+    default Student findByUser(Long userId) {
+        Specification<Student> specification = StudentSpecs.belongToUser(userId);
+        return (Student) this.findOne(specification).get();
     }
 
 }

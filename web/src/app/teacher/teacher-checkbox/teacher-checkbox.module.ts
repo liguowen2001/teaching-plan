@@ -8,6 +8,9 @@ import { TeacherCheckboxComponent } from './teacher-checkbox.component';
   declarations: [
     TeacherCheckboxComponent
   ],
+  exports: [
+    TeacherCheckboxComponent
+  ],
   imports: [
     CommonModule
   ]

@@ -26,7 +26,6 @@ public class KlassServiceImpl implements KlassService {
         Klass oldKlass = this.KlassRepository.findById(id).get();
         oldKlass.setName(newKlass.getName());
         oldKlass.setMajor(newKlass.getMajor());
-        oldKlass.setName(newKlass.getName());
         return this.KlassRepository.save(oldKlass);
     }
 

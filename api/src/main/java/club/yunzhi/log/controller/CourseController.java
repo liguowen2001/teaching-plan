@@ -34,8 +34,8 @@ public class CourseController {
     }
 
     @PostMapping
-    public void save(@RequestBody final Course course) {
-        this.courseService.save(course);
+    public Long save(@RequestBody final Course course) {
+        return this.courseService.save(course);
     }
 
     @GetMapping("page")

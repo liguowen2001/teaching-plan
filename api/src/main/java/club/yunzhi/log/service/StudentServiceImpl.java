@@ -65,4 +65,9 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getAll() {
         return (List<Student>) this.studentRepository.findAll();
     }
+
+    @Override
+    public Student findByUserId(Long userId) {
+        return this.studentRepository.findByUser(userId);
+    }
 }

@@ -1,7 +1,7 @@
 package club.yunzhi.log.service;
 
-import club.yunzhi.log.entity.Klass;
-import club.yunzhi.log.repository.KlassRepository;
+import club.yunzhi.log.entity.TeachingPlan;
+import club.yunzhi.log.repository.TeachingPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,44 +10,44 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class KlassServiceImpl implements KlassService {
+public class TeachingPlanServiceImpl implements TeachingPlanService {
 
     @Autowired
-    KlassRepository KlassRepository;
+    TeachingPlanRepository teachingPlanRepository;
 
     @Override
-    public String save(Klass klass) {
-        this.KlassRepository.save(klass);
+    public String save(TeachingPlan teachingPlan) {
+        this.teachingPlanRepository.save(teachingPlan);
         return "success";
     }
 
     @Override
-    public Klass update(Long id, Klass newKlass) {
-        Klass oldKlass = this.KlassRepository.findById(id).get();
-        oldKlass.setName(newKlass.getName());
-        oldKlass.setMajor(newKlass.getMajor());
-        oldKlass.setName(newKlass.getName());
-        return this.KlassRepository.save(oldKlass);
+    public TeachingPlan update(Long id, TeachingPlan newTeachingPlan) {
+        TeachingPlan oldteachingPlan = this.teachingPlanRepository.findById(id).get();
+        oldteachingPlan.setName(newTeachingPlan.getName());
+        oldteachingPlan.setKlasses(newTeachingPlan.getKlasses());
+        oldteachingPlan.setTeachingFocus(newTeachingPlan.getTeachingFocus());
+        return this.teachingPlanRepository.save(oldteachingPlan);
     }
 
     @Override
     public void deleteById(Long id) {
-        this.KlassRepository.deleteById(id);
+        this.teachingPlanRepository.deleteById(id);
     }
 
     @Override
-    public Klass findById(Long id) {
-        return KlassRepository.findById(id).get();
+    public TeachingPlan findById(Long id) {
+        return teachingPlanRepository.findById(id).get();
     }
 
     @Override
-    public Page<Klass> findAll(String name,Long majorId ,Pageable pageable) {
-        Page<Klass> page = KlassRepository.findAll(name,majorId,pageable);
+    public Page<TeachingPlan> findAll(String name,Long semesterId, Long teacherId ,Pageable pageable) {
+        Page<TeachingPlan> page = teachingPlanRepository.findAll(name,semesterId,teacherId ,pageable);
         return page;
     }
 
     @Override
-    public List<Klass> getAll() {
-        return (List<Klass>) this.KlassRepository.findAll();
+    public List<TeachingPlan> getAll() {
+        return (List<TeachingPlan>) this.teachingPlanRepository.findAll();
     }
 }

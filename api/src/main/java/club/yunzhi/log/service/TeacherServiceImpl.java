@@ -64,4 +64,9 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> getAll() {
         return (List<Teacher>) this.teacherRepository.findAll();
     }
+
+    @Override
+    public Teacher findByUser(Long userId) {
+        return this.teacherRepository.findByUser(userId);
+    }
 }

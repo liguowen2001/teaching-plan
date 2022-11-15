@@ -18,17 +18,6 @@ public class Teacher {
     @OneToOne
     private User user;
 
-    @OneToMany
-    private List<TeachingPlan> teachingPlans;
-
-    public List<TeachingPlan> getTeachingPlans() {
-        return teachingPlans;
-    }
-
-    public void setTeachingPlans(List<TeachingPlan> teachingPlans) {
-        this.teachingPlans = teachingPlans;
-    }
-
     public User getUser() {
         return user;
     }

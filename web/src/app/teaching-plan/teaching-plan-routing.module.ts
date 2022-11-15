@@ -33,5 +33,5 @@ const routs: Routes = [
   imports: [RouterModule.forChild(routs)],
   exports: [RouterModule]
 })
-export class CourseRoutingModule {
+export class TeachingPlanRoutingModule {
 }

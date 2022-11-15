@@ -1,7 +1,11 @@
 package club.yunzhi.log.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 教学计划
@@ -28,9 +32,31 @@ public class TeachingPlan {
     @OneToOne
     private Course course;
 
-    @ManyToMany
-    private List<Klass> klasses;
+    @JsonBackReference
+    @ManyToMany(targetEntity = Klass.class)
+    @JoinTable(name = "klass_teaching_plan",
+        joinColumns = {@JoinColumn(name = "kt_t_id",referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "kt_k_id",referencedColumnName = "id")})
 
+    private Set<Klass> klasses;
+
+    private String teachingFocus;
+
+    public String getTeachingFocus() {
+        return teachingFocus;
+    }
+
+    public void setTeachingFocus(String teachingFocus) {
+        this.teachingFocus = teachingFocus;
+    }
+
+    public Set<Klass> getKlasses() {
+        return klasses;
+    }
+
+    public void setKlasses(Set<Klass> klasses) {
+        this.klasses = klasses;
+    }
 
     public Teacher getTeacher() {
         return teacher;
@@ -48,14 +74,6 @@ public class TeachingPlan {
         this.course = course;
     }
 
-    public List<Klass> getKlasses() {
-        return klasses;
-    }
-
-    public void setKlasses(List<Klass> klasses) {
-        this.klasses = klasses;
-    }
-
 
     public Long getId() {
         return id;
@@ -64,4 +82,5 @@ public class TeachingPlan {
     public void setId(Long id) {
         this.id = id;
     }
+
 }

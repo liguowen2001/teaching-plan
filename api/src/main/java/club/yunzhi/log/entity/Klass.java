@@ -1,16 +1,18 @@
 package club.yunzhi.log.entity;
 
 
-import com.mengyunzhi.core.entity.YunzhiEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * 班级实体
  */
 @Entity
-public class Klass implements YunzhiEntity<Long> {
+public class Klass  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -28,18 +30,22 @@ public class Klass implements YunzhiEntity<Long> {
     @ManyToOne
     private Major major;
 
+    @ManyToMany(targetEntity = TeachingPlan.class)
+    @JoinTable(name = "klass_teaching_plan",
+            joinColumns = {@JoinColumn(name = "kt_k_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "kt_t_id", referencedColumnName = "id")})
+    private Set<TeachingPlan> teachingPlans;
+
     public Long getId() {
         return id;
     }
 
-    @Override
-    public Boolean getDeleted() {
-        return null;
+    public Set<TeachingPlan> getTeachingPlans() {
+        return teachingPlans;
     }
 
-    @Override
-    public void setAllFieldsToNull() {
-        YunzhiEntity.super.setAllFieldsToNull();
+    public void setTeachingPlans(Set<TeachingPlan> teachingPlans) {
+        this.teachingPlans = teachingPlans;
     }
 
     public void setId(Long id) {
@@ -61,4 +67,6 @@ public class Klass implements YunzhiEntity<Long> {
     public void setMajor(Major major) {
         this.major = major;
     }
+
+
 }

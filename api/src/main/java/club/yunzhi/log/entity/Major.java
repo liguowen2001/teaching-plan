@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class Major {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     /**
      * 名称
@@ -18,16 +18,6 @@ public class Major {
      */
     private String trainingPlan;
 
-    @ManyToMany
-    private List<Course> courses;
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
 
     public String getName() {
         return name;
